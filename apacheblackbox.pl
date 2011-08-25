@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# See embedded perldoc for more information or visit http://www.devco.net/pubwiki/ApacheBlackbox 
+# See embedded perldoc for more information or visit http://www.devco.net/pubwiki/ApacheBlackbox
 
 use Getopt::Long qw(:config auto_help);
 use Pod::Usage;
@@ -61,12 +61,12 @@ $SIG{ALRM} = \&reportState;
 if ($logfile) {
 	use File::Tail;
 	use Proc::Daemon;
-	
+
 	my $line;
 
 	if (-r $logfile) {
 		Proc::Daemon::Init;
-		
+
 		alarm($reportFrequency);
 
 		my $file = File::Tail->new($logfile);
@@ -163,7 +163,7 @@ sub reportState {
 	} else {
 		print (LOG "apache.stats.averagebytesout=0\n");
 	}
-			
+
 	if (($totalRequestTime > 0) && ($requestCount > 0)) {
 		print (LOG "apache.stats.averagetime=".($totalRequestTime / $requestCount)."\n");
 	} else {
@@ -206,7 +206,7 @@ sub reportState {
 			print(LOG "apache.requests.$u.served=$page{requests}\n");
 			print(LOG "apache.requests.$u.totaltime=$page{totalTime}\n");
 			print(LOG "apache.requests.$u.averagetime=" . ($page{totalTime} / $page{requests}) . "\n");
-	
+
 			$aggr{100} = $aggr{200} = $aggr{300} = $aggr{400} = $aggr{500} = 0;
 			foreach (grep(/^1/, @statuscodes)) { $aggr{100} += $statuses{$_}; }
 			foreach (grep(/^2/, @statuscodes)) { $aggr{200} += $statuses{$_}; }
@@ -222,7 +222,7 @@ sub reportState {
 
 			foreach (@statuscodes) {
 				unless ($statuses{$_}) { $statuses{$_} = 0; }
-			
+
 				print(LOG "apache.requests.$u.$_=$statuses{$_}\n");
 			}
 		}
@@ -341,6 +341,6 @@ This is based on a basic concept found here: http://www.onlamp.com/pub/a/apache/
 
 =head1 AUTHOR
 
-Written by R.I.Pienaar, visit http://www.devco.net/pubwiki/ApacheBlackbox/ for more info.
+Written by R.I.Pienaar, visit http://www.devco.net/ for more info.
 
 =cut
