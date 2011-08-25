@@ -106,13 +106,13 @@ With this enabled you can now configure a custom log format to write compatible 
 As you can see any of the above options simply get passed to the script from the Apache CustomLog lines, you can further select only certain requests to be passed to this log using the normal apache methods such as -Location_ blocks etc:
 
 <pre>
-	&gt;<Location /cgi-bin&gt;
+	&lt;<Location /cgi-bin&gt;
 		SetEnv blackboxlog 1
-	&gt;/Location&gt;
+	&lt;/Location&gt;
 
-	&gt;<IfModule mod_logio.c&gt;
+	&lt;<IfModule mod_logio.c&gt;
 		CustomLog "| /path/to/apacheblackbox.pl --output /var/www/blackbox.txt --detail --show \\'script.pl\\'"  "%a %X %t \"%r\" %s/%>s %{pid}P/%{tid}P %T/%D %I/%O/%B" env=blackboxlog
-	&gt;/IfModule&gt;
+	&lt;/IfModule&gt;
 </pre>
 
 Combining the Apache control blocks with the options to this script such as _--skip_ and _--show_ gives you very fine grained control over what stats to record and can be used using the same basic script on many virtual hosts and sets of files on the same machine concurrently.
