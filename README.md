@@ -19,7 +19,7 @@ DESCRIPTION
 
 This is a parser for apache log files that is intended to be used in a pipe from within apache.  The basic idea is that you define a custom log format that contains performance and size details for each request, this parser will understand this format and produce regular statistics based on the input.
 
-The statistics gets written to a file, see B<--output>, in the format:
+The statistics gets written to a file, see _--output_, in the format:
 
 <pre>
  variable=value
@@ -42,9 +42,9 @@ A sample from an actual run below:
 	apache.status.200=1123740
 </pre>
 
-There are many more variables kept with self explanatory names.  In addition to overall stats details for each unique URL can be kept.  The list of URLs to be considered for statistics can be manipulated using the B<--skip> and B<--show> options, how to deal with parameters in the requests can be modified using the B<--fileonly> option.
+There are many more variables kept with self explanatory names.  In addition to overall stats details for each unique URL can be kept.  The list of URLs to be considered for statistics can be manipulated using the _--skip_ and _--show_ options, how to deal with parameters in the requests can be modified using the _--fileonly_ option.
 
-Most of the values are always incrementing counters, they will overflow back to zero when the limits of the data storage is reached, these are best used in a B<DERIVE> data format in a RRD file using tools such as Cacti.
+Most of the values are always incrementing counters, they will overflow back to zero when the limits of the data storage is reached, these are best used in a _DERIVE_ data format in a RRD file using tools such as Cacti.
 
 OPTIONS
 =======
@@ -98,21 +98,21 @@ To activate this script you need to have _mod_logio_ enabled in your apache conf
 With this enabled you can now configure a custom log format to write compatible log entries to this script, you can do this inside a VirtualHost, various other places where CustomLog is valid in an apache config file:
 
 <pre>
-	<IfModule mod_logio.c>
+	&lt;IfModule mod_logio.c&gt;
 		CustomLog "| /path/to/apacheblackbox.pl --output /var/www/blackbox.txt --detail"  "%a %X %t \"%r\" %s/%>s %{pid}P/%{tid}P %T/%D %I/%O/%B"
-	</IfModule>
+	&lt;/IfModule&gt;
 </pre>
 
 As you can see any of the above options simply get passed to the script from the Apache CustomLog lines, you can further select only certain requests to be passed to this log using the normal apache methods such as -Location_ blocks etc:
 
 <pre>
-	<Location /cgi-bin>
+	&gt;<Location /cgi-bin&gt;
 		SetEnv blackboxlog 1
-	</Location>
+	&gt;/Location&gt;
 
-	<IfModule mod_logio.c>
+	&gt;<IfModule mod_logio.c&gt;
 		CustomLog "| /path/to/apacheblackbox.pl --output /var/www/blackbox.txt --detail --show \\'script.pl\\'"  "%a %X %t \"%r\" %s/%>s %{pid}P/%{tid}P %T/%D %I/%O/%B" env=blackboxlog
-	</IfModule>
+	&gt;/IfModule&gt;
 </pre>
 
 Combining the Apache control blocks with the options to this script such as _--skip_ and _--show_ gives you very fine grained control over what stats to record and can be used using the same basic script on many virtual hosts and sets of files on the same machine concurrently.
