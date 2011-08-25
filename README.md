@@ -106,11 +106,11 @@ With this enabled you can now configure a custom log format to write compatible 
 As you can see any of the above options simply get passed to the script from the Apache CustomLog lines, you can further select only certain requests to be passed to this log using the normal apache methods such as -Location_ blocks etc:
 
 <pre>
-	&lt;<Location /cgi-bin&gt;
+	&lt;Location /cgi-bin&gt;
 		SetEnv blackboxlog 1
 	&lt;/Location&gt;
 
-	&lt;<IfModule mod_logio.c&gt;
+	&lt;IfModule mod_logio.c&gt;
 		CustomLog "| /path/to/apacheblackbox.pl --output /var/www/blackbox.txt --detail --show \\'script.pl\\'"  "%a %X %t \"%r\" %s/%>s %{pid}P/%{tid}P %T/%D %I/%O/%B" env=blackboxlog
 	&lt;/IfModule&gt;
 </pre>
